@@ -24,6 +24,8 @@ Console.WriteLine($"Race: {@"White"}");
 Console.WriteLine($"Gender: {@"Male"}");
 Console.WriteLine($"Hours_per_week: {50F}");
 Console.WriteLine($"Income: {@"<=50K"}");
+Console.WriteLine($"Income: {@"<=50K"}");
+Console.WriteLine($"Income: {@"<=50K"}");
 
 
 var sortedScoresWithLabel = Income.PredictAllLabels(sampleData);
