@@ -1,0 +1,504 @@
+﻿{
+  "Scenario": "Classification",
+  "DataSource": {
+    "Version": 3,
+    "EscapeCharacter": "\"",
+    "ReadMultiLines": false,
+    "KeepDiacritics": false,
+    "KeepPunctuations": false,
+    "AllowQuoting": false,
+    "Type": "TabularFile",
+    "FilePath": "C:\\Users\\mbelo\\OneDrive\\Laptop\\Desktop\\income.csv",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "age",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "workclass",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "fnlwgt",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "education",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "educational-num",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "marital-status",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "occupation",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "relationship",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "race",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "gender",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "capital-gain",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "capital-loss",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "hours-per-week",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "native-country",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "income",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 3,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmMulti",
+        "Score": 0.68275118554847147,
+        "RuntimeInSeconds": 1.318,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e6 * e11",
+          "e0": {
+            "OutputColumnNames": [
+              "race",
+              "gender"
+            ],
+            "InputColumnNames": [
+              "race",
+              "gender"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "InputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ]
+          },
+          "e11": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnNames": [
+              "race",
+              "gender",
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "OutputColumnName": "income",
+            "InputColumnName": "income",
+            "AddKeyValueAnnotationsAsText": false
+          },
+          "e6": {
+            "NumberOfLeaves": 4,
+            "MinimumExampleCountPerLeaf": 20,
+            "LearningRate": 1.0,
+            "NumberOfTrees": 4,
+            "SubsampleFraction": 1.0,
+            "MaximumBinCountPerFeature": 254,
+            "FeatureFraction": 1.0,
+            "L1Regularization": 2E-10,
+            "L2Regularization": 1.0,
+            "LabelColumnName": "income",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmMulti",
+        "Score": 0.67594009729600291,
+        "RuntimeInSeconds": 1.815,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e6 * e11",
+          "e0": {
+            "OutputColumnNames": [
+              "race",
+              "gender"
+            ],
+            "InputColumnNames": [
+              "race",
+              "gender"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "InputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ]
+          },
+          "e11": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnNames": [
+              "race",
+              "gender",
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "OutputColumnName": "income",
+            "InputColumnName": "income",
+            "AddKeyValueAnnotationsAsText": false
+          },
+          "e6": {
+            "NumberOfLeaves": 4,
+            "MinimumExampleCountPerLeaf": 20,
+            "LearningRate": 0.99999977667298645,
+            "NumberOfTrees": 18,
+            "SubsampleFraction": 0.8439703105173505,
+            "MaximumBinCountPerFeature": 256,
+            "FeatureFraction": 0.99999999,
+            "L1Regularization": 2E-10,
+            "L2Regularization": 0.99999977667298645,
+            "LabelColumnName": "income",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmMulti",
+        "Score": 0.67575825818140867,
+        "RuntimeInSeconds": 2.082,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e6 * e11",
+          "e0": {
+            "OutputColumnNames": [
+              "race",
+              "gender"
+            ],
+            "InputColumnNames": [
+              "race",
+              "gender"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "InputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ]
+          },
+          "e11": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnNames": [
+              "race",
+              "gender",
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "OutputColumnName": "income",
+            "InputColumnName": "income",
+            "AddKeyValueAnnotationsAsText": false
+          },
+          "e6": {
+            "NumberOfLeaves": 267,
+            "MinimumExampleCountPerLeaf": 20,
+            "LearningRate": 0.99999977667298645,
+            "NumberOfTrees": 4,
+            "SubsampleFraction": 0.99999977667298645,
+            "MaximumBinCountPerFeature": 252,
+            "FeatureFraction": 0.99626491862537581,
+            "L1Regularization": 2E-10,
+            "L2Regularization": 0.68195634182674725,
+            "LabelColumnName": "income",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeOva",
+        "Score": 0.675350385341352,
+        "RuntimeInSeconds": 2.144,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e4 * e11",
+          "e0": {
+            "OutputColumnNames": [
+              "race",
+              "gender"
+            ],
+            "InputColumnNames": [
+              "race",
+              "gender"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "InputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ]
+          },
+          "e11": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnNames": [
+              "race",
+              "gender",
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "OutputColumnName": "income",
+            "InputColumnName": "income",
+            "AddKeyValueAnnotationsAsText": false
+          },
+          "e4": {
+            "NumberOfLeaves": 4,
+            "MinimumExampleCountPerLeaf": 32,
+            "NumberOfTrees": 4,
+            "MaximumBinCountPerFeature": 374,
+            "FeatureFraction": 0.99999999,
+            "LearningRate": 0.01392780978582121,
+            "LabelColumnName": "income",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeOva",
+        "Score": 0.675350385341352,
+        "RuntimeInSeconds": 2.477,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e4 * e11",
+          "e0": {
+            "OutputColumnNames": [
+              "race",
+              "gender"
+            ],
+            "InputColumnNames": [
+              "race",
+              "gender"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "InputColumnNames": [
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ]
+          },
+          "e11": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnNames": [
+              "race",
+              "gender",
+              "age",
+              "educational-num",
+              "hours-per-week"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "OutputColumnName": "income",
+            "InputColumnName": "income",
+            "AddKeyValueAnnotationsAsText": false
+          },
+          "e4": {
+            "NumberOfLeaves": 4,
+            "MinimumExampleCountPerLeaf": 45,
+            "NumberOfTrees": 5,
+            "MaximumBinCountPerFeature": 628,
+            "FeatureFraction": 0.99999999,
+            "LearningRate": 0.0073971113926109408,
+            "LabelColumnName": "income",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "OneHotEncoding",
+      "e1": "ReplaceMissingValues",
+      "e2": "Concatenate",
+      "e3": "MapValueToKey",
+      "e4": "FastTreeOva",
+      "e5": "FastForestOva",
+      "e6": "LightGbmMulti",
+      "e7": "LbfgsLogisticRegressionOva",
+      "e8": "LbfgsMaximumEntropyMulti",
+      "e9": "SdcaMaximumEntropyMulti",
+      "e10": "SdcaLogisticRegressionOva",
+      "e11": "MapKeyToValue"
+    },
+    "Schema": "e0 * e1 * e2 * e3 * (e4 + e5 + e6 + e7 + e8 + e9 + e10) * e11",
+    "MetricName": "MacroAccuracy",
+    "ModelFilePath": "C:\\Users\\mbelo\\source\\repos\\PSBAv3\\PSBAv3\\income.mlnet"
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 2,
+    "Subsampling": false,
+    "Tuner": "eci-cfo",
+    "Type": "ClassificationTrainingOption",
+    "TrainingTime": 180,
+    "OptimizeMetric": "MacroAccuracy",
+    "LabelColumn": "income",
+    "AvailableTrainers": [
+      "SDCA",
+      "LBFGS",
+      "LGBM",
+      "FASTTREE",
+      "FASTFOREST"
+    ],
+    "ValidationOption": {
+      "Version": 0,
+      "Type": "TrainValidateSplitValidationOption",
+      "SplitRatio": 0.2
+    }
+  }
+}
