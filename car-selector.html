@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор марки и модели автомобиля</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        h1 {
+            font-size: 22px;
+            color: #1a1a2e;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #fff;
+            color: #333;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4a6cf7;
+        }
+
+        select:disabled {
+            background-color: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .card {
+            display: none;
+            background: #f8f9ff;
+            border: 1px solid #e0e4f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .card.visible {
+            display: block;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+
+        .card .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: 14px;
+        }
+
+        .card .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .card .info-label {
+            color: #666;
+        }
+
+        .card .info-value {
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+
+        .json-section {
+            margin-top: 28px;
+        }
+
+        .json-section h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .json-block {
+            background: #1e1e2e;
+            color: #a6e3a1;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Выбор автомобиля</h1>
+
+        <div class="form-group">
+            <label for="brandSelect">Марка</label>
+            <select id="brandSelect">
+                <option value="">-- Выберите марку --</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="modelSelect">Модель</label>
+            <select id="modelSelect" disabled>
+                <option value="">-- Сначала выберите марку --</option>
+            </select>
+        </div>
+
+        <div class="card" id="resultCard">
+            <h2 id="resultTitle"></h2>
+            <div class="info-row">
+                <span class="info-label">Марка</span>
+                <span class="info-value" id="resBrand"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Страна</span>
+                <span class="info-value" id="resCountry"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Модель</span>
+                <span class="info-value" id="resModel"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Кузов</span>
+                <span class="info-value" id="resBody"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Выпуск с</span>
+                <span class="info-value" id="resYear"></span>
+            </div>
+        </div>
+
+        <div class="json-section">
+            <h3>JSON текущего выбора:</h3>
+            <div class="json-block" id="jsonOutput">// Выберите марку и модель</div>
+        </div>
+    </div>
+
+    <script>
+        // Данные автомобилей (встроенные, дублируют cars.json)
+        const carsData = {
+            "brands": [
+                {
+                    "id": "bmw",
+                    "name": "BMW",
+                    "country": "Germany",
+                    "models": [
+                        { "id": "bmw_3", "name": "3 Series", "year_start": 1975, "body": "Sedan" },
+                        { "id": "bmw_5", "name": "5 Series", "year_start": 1972, "body": "Sedan" },
+                        { "id": "bmw_7", "name": "7 Series", "year_start": 1977, "body": "Sedan" },
+                        { "id": "bmw_x3", "name": "X3", "year_start": 2003, "body": "SUV" },
+                        { "id": "bmw_x5", "name": "X5", "year_start": 1999, "body": "SUV" },
+                        { "id": "bmw_x6", "name": "X6", "year_start": 2008, "body": "SUV Coupe" },
+                        { "id": "bmw_m3", "name": "M3", "year_start": 1986, "body": "Sedan" },
+                        { "id": "bmw_m5", "name": "M5", "year_start": 1984, "body": "Sedan" },
+                        { "id": "bmw_z4", "name": "Z4", "year_start": 2002, "body": "Roadster" }
+                    ]
+                },
+                {
+                    "id": "lada",
+                    "name": "LADA",
+                    "country": "Russia",
+                    "models": [
+                        { "id": "lada_vesta", "name": "Vesta", "year_start": 2015, "body": "Sedan" },
+                        { "id": "lada_vesta_sw", "name": "Vesta SW Cross", "year_start": 2017, "body": "Wagon" },
+                        { "id": "lada_granta", "name": "Granta", "year_start": 2011, "body": "Sedan" },
+                        { "id": "lada_niva", "name": "Niva Travel", "year_start": 2021, "body": "SUV" },
+                        { "id": "lada_niva_legend", "name": "Niva Legend", "year_start": 1977, "body": "SUV" },
+                        { "id": "lada_largus", "name": "Largus", "year_start": 2012, "body": "Wagon" },
+                        { "id": "lada_xray", "name": "XRAY", "year_start": 2015, "body": "Crossover" }
+                    ]
+                },
+                {
+                    "id": "nissan",
+                    "name": "NISSAN",
+                    "country": "Japan",
+                    "models": [
+                        { "id": "nissan_qashqai", "name": "Qashqai", "year_start": 2006, "body": "Crossover" },
+                        { "id": "nissan_xtrail", "name": "X-Trail", "year_start": 2000, "body": "SUV" },
+                        { "id": "nissan_juke", "name": "Juke", "year_start": 2010, "body": "Crossover" },
+                        { "id": "nissan_leaf", "name": "Leaf", "year_start": 2010, "body": "Hatchback" },
+                        { "id": "nissan_murano", "name": "Murano", "year_start": 2002, "body": "SUV" },
+                        { "id": "nissan_patrol", "name": "Patrol", "year_start": 1951, "body": "SUV" },
+                        { "id": "nissan_gtr", "name": "GT-R", "year_start": 2007, "body": "Coupe" },
+                        { "id": "nissan_almera", "name": "Almera", "year_start": 1995, "body": "Sedan" }
+                    ]
+                }
+            ]
+        };
+
+        const brandSelect = document.getElementById('brandSelect');
+        const modelSelect = document.getElementById('modelSelect');
+        const resultCard = document.getElementById('resultCard');
+        const jsonOutput = document.getElementById('jsonOutput');
+
+        // Заполняем список марок
+        carsData.brands.forEach(brand => {
+            const option = document.createElement('option');
+            option.value = brand.id;
+            option.textContent = brand.name;
+            brandSelect.appendChild(option);
+        });
+
+        // Обработчик смены марки
+        brandSelect.addEventListener('change', () => {
+            const brandId = brandSelect.value;
+            modelSelect.innerHTML = '';
+            resultCard.classList.remove('visible');
+
+            if (!brandId) {
+                modelSelect.disabled = true;
+                modelSelect.innerHTML = '<option value="">-- Сначала выберите марку --</option>';
+                jsonOutput.textContent = '// Выберите марку и модель';
+                return;
+            }
+
+            const brand = carsData.brands.find(b => b.id === brandId);
+            modelSelect.disabled = false;
+            modelSelect.innerHTML = '<option value="">-- Выберите модель --</option>';
+
+            brand.models.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model.id;
+                option.textContent = model.name;
+                modelSelect.appendChild(option);
+            });
+
+            jsonOutput.textContent = JSON.stringify({
+                brand: brand.name,
+                country: brand.country,
+                models_count: brand.models.length,
+                models: brand.models.map(m => m.name)
+            }, null, 2);
+        });
+
+        // Обработчик смены модели
+        modelSelect.addEventListener('change', () => {
+            const brandId = brandSelect.value;
+            const modelId = modelSelect.value;
+
+            if (!modelId) {
+                resultCard.classList.remove('visible');
+                return;
+            }
+
+            const brand = carsData.brands.find(b => b.id === brandId);
+            const model = brand.models.find(m => m.id === modelId);
+
+            document.getElementById('resultTitle').textContent = `${brand.name} ${model.name}`;
+            document.getElementById('resBrand').textContent = brand.name;
+            document.getElementById('resCountry').textContent = brand.country;
+            document.getElementById('resModel').textContent = model.name;
+            document.getElementById('resBody').textContent = model.body;
+            document.getElementById('resYear').textContent = `${model.year_start} г.`;
+
+            resultCard.classList.add('visible');
+
+            const selectedJson = {
+                brand: {
+                    id: brand.id,
+                    name: brand.name,
+                    country: brand.country
+                },
+                model: {
+                    id: model.id,
+                    name: model.name,
+                    year_start: model.year_start,
+                    body: model.body
+                }
+            };
+            jsonOutput.textContent = JSON.stringify(selectedJson, null, 2);
+        });
+    </script>
+</body>
+</html>

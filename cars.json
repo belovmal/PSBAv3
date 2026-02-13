@@ -1,0 +1,49 @@
+{
+  "brands": [
+    {
+      "id": "bmw",
+      "name": "BMW",
+      "country": "Germany",
+      "models": [
+        { "id": "bmw_3", "name": "3 Series", "year_start": 1975, "body": "Sedan" },
+        { "id": "bmw_5", "name": "5 Series", "year_start": 1972, "body": "Sedan" },
+        { "id": "bmw_7", "name": "7 Series", "year_start": 1977, "body": "Sedan" },
+        { "id": "bmw_x3", "name": "X3", "year_start": 2003, "body": "SUV" },
+        { "id": "bmw_x5", "name": "X5", "year_start": 1999, "body": "SUV" },
+        { "id": "bmw_x6", "name": "X6", "year_start": 2008, "body": "SUV Coupe" },
+        { "id": "bmw_m3", "name": "M3", "year_start": 1986, "body": "Sedan" },
+        { "id": "bmw_m5", "name": "M5", "year_start": 1984, "body": "Sedan" },
+        { "id": "bmw_z4", "name": "Z4", "year_start": 2002, "body": "Roadster" }
+      ]
+    },
+    {
+      "id": "lada",
+      "name": "LADA",
+      "country": "Russia",
+      "models": [
+        { "id": "lada_vesta", "name": "Vesta", "year_start": 2015, "body": "Sedan" },
+        { "id": "lada_vesta_sw", "name": "Vesta SW Cross", "year_start": 2017, "body": "Wagon" },
+        { "id": "lada_granta", "name": "Granta", "year_start": 2011, "body": "Sedan" },
+        { "id": "lada_niva", "name": "Niva Travel", "year_start": 2021, "body": "SUV" },
+        { "id": "lada_niva_legend", "name": "Niva Legend", "year_start": 1977, "body": "SUV" },
+        { "id": "lada_largus", "name": "Largus", "year_start": 2012, "body": "Wagon" },
+        { "id": "lada_xray", "name": "XRAY", "year_start": 2015, "body": "Crossover" }
+      ]
+    },
+    {
+      "id": "nissan",
+      "name": "NISSAN",
+      "country": "Japan",
+      "models": [
+        { "id": "nissan_qashqai", "name": "Qashqai", "year_start": 2006, "body": "Crossover" },
+        { "id": "nissan_xtrail", "name": "X-Trail", "year_start": 2000, "body": "SUV" },
+        { "id": "nissan_juke", "name": "Juke", "year_start": 2010, "body": "Crossover" },
+        { "id": "nissan_leaf", "name": "Leaf", "year_start": 2010, "body": "Hatchback" },
+        { "id": "nissan_murano", "name": "Murano", "year_start": 2002, "body": "SUV" },
+        { "id": "nissan_patrol", "name": "Patrol", "year_start": 1951, "body": "SUV" },
+        { "id": "nissan_gtr", "name": "GT-R", "year_start": 2007, "body": "Coupe" },
+        { "id": "nissan_almera", "name": "Almera", "year_start": 1995, "body": "Sedan" }
+      ]
+    }
+  ]
+}
